@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>NTGMK | Добавление вопроса</title>
+</head>
+<body>
+	<div id="control">
+		Введите количество ответов: <input type="text" id="count">
+		<button onclick="show()">Готово</button>
+	</div>			
+	<div id="ask">
+	</div>
+<script>
+	function show(argument) {
+		ask = document.getElementById('ask');
+		count = document.getElementById('count').value;
+		for (var i = 1; i <= count; i++) {
+			ask.innerHTML = ask.innerHTML + i + "-й ответ <input name='dzen' class='asks' type='radio' value='nedzen'><input type='text' class='textOfAnswer'></p>"
+		}
+		control = document.getElementById('control');
+		control.innerHTML = "";
+		ask.innerHTML += "<button onclick='getQuest()'>Готово</button>"
+	}
+</script>
+	
+<script>
+	function getQuest() {
+		quests = document.getElementsByClassName('textOfAnswer');
+		var Readystring = quests[0].value;
+		for (var i = 1; i <= count-1; i++) {
+			
+			Readystring = Readystring +=";"+quests[i].value;
+		}
+		console.log(Readystring);
+	}
+</script>
+
+</body>
+</html>
