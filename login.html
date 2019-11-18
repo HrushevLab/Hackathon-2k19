@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NTGMK Test | Авторизация</title>
+	<script src="scripts/jq.js"></script>
+	<script>
+		function enter() {
+			login = document.getElementById("login").value;
+			password = document.getElementById("password").value;
+			$.ajax({
+				type:"POST",
+				url:"engine/login.php",
+				data:"type=login&login="+login+"&password="+password,
+				success: function(response){
+					console.log(response);
+					if (response == "success"){
+						document.location.href = "cabinet.html";
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<form>
+		<input type="text" name="login" id="login">
+		<input type="password" name="password" id="password">
+		<input type="button" name="button" onclick="enter()">
+	</form>
+</body>
+</html>
