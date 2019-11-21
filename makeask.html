@@ -3,38 +3,88 @@
 <head>
 	<meta charset="UTF-8">
 	<title>NTGMK | Добавление вопроса</title>
+	<script src="scripts/jq.js"></script>
+	<script type="text/javascript" src="scripts/test.js">
+		var currentID_qualification, currentID_type;
+	</script>
 </head>
 <body>
 	<div id="control">
-		Введите количество ответов: <input type="text" id="count">
-		<button onclick="show()">Готово</button>
+		Выберите квалификацию:
+		<select id="select_qu">
+			<script type="text/javascript">
+				getOption("getQualification",document.getElementById("select_qu"));
+			</script>
+		</select>
+		<br> Выберите тип вопроса:
+		<select id="select_ty">
+			<script type="text/javascript">
+				getOption("getType",document.getElementById("select_ty"));
+			</script>
+		</select>
+
+		<br>Введите вопрос:
+		<br><textarea name="question" id="question" cols="30" rows="10"></textarea>
+
+		<br> <span id="cout">Введите правильный ответ:</span> <input type="text" id="count" value="4">
 	</div>			
 	<div id="ask">
 	</div>
-<script>
-	function show(argument) {
-		ask = document.getElementById('ask');
-		count = document.getElementById('count').value;
-		for (var i = 1; i <= count; i++) {
-			ask.innerHTML = ask.innerHTML + i + "-й ответ <input name='dzen' class='asks' type='radio' value='nedzen'><input type='text' class='textOfAnswer'></p>"
-		}
-		control = document.getElementById('control');
-		control.innerHTML = "";
-		ask.innerHTML += "<button onclick='getQuest()'>Готово</button>"
-	}
-</script>
+	<div id="id">
+		
+	</div>
+	<div id="button">
+		
+	</div>
 	
-<script>
-	function getQuest() {
-		quests = document.getElementsByClassName('textOfAnswer');
-		var Readystring = quests[0].value;
-		for (var i = 1; i <= count-1; i++) {
-			
-			Readystring = Readystring +=";"+quests[i].value;
-		}
-		console.log(Readystring);
-	}
-</script>
-
+	<script type="text/javascript">
+		var type = 1,id_ty,id_qu;
+		ask = document.getElementById('ask');
+		let select_qu = document.getElementById('select_qu');
+		select_qu.addEventListener('change',()=>{
+		id_qu = select_qu.options[select_qu.selectedIndex].getAttribute("sqlid");
+		console.log("id_qu = " + id_qu);
+		})
+		let select = document.getElementById('select_ty');
+		select.addEventListener('change', () => {
+		idPlace=document.getElementById('id').innerHTML;
+		id_ty = select.options[select.selectedIndex].getAttribute("sqlid");
+		console.log("id_ty = "+id_ty)
+		ask = document.getElementById('ask');
+		ask.innerHTML = "";
+			switch(select.value)
+			{
+				case 'Определение':
+					type = 1;
+					document.getElementById('cout').innerHTML = "Правильный ответ";
+					show(type);
+					buttonField.innerHTML = "<br><button onclick=getQuest("+type+","+id_ty+","+id_qu+")>Готово</button>"
+				break;
+				case 'Сопоставление':
+					document.getElementById('cout').innerHTML = "Количество пар";
+					type = 2;
+					show(type);
+					buttonField.innerHTML = "<br><button onclick=getQuest("+type+","+id_ty+","+id_qu+")>Готово</button>"
+				break;
+				case 'Выбор':
+					type = 3;
+					document.getElementById('cout').innerHTML = "Количество ответов";
+					show(type);
+					buttonField.innerHTML = "<br><button onclick=getQuest("+type+","+id_ty+","+id_qu+")>Готово</button>"
+				break;
+				case 'Последовательность':
+					type = 4;
+					document.getElementById('cout').innerHTML = "Количество действий";
+					show(type);
+					ask.innerHTML = ask.innerHTML + "Последовательность правильных ответов: <input type='text' id='answers_sequnce'>" ;
+					buttonField.innerHTML = "<br><button onclick=getQuest("+type+","+id_ty+","+id_qu+")>Готово</button>"
+				break;
+			}
+		});
+		buttonField = document.getElementById('button');
+		buttonField.innerHTML += "<br><button onclick=getQuest("+type+","+id_ty+","+id_qu+")>Готово</button>";
+		
+		getID();
+	</script>
 </body>
 </html>

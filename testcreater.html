@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>NTGMK | Создание теста</title>
+	<script src="scripts/jq.js"></script>
+	<script type="text/javascript" src="scripts/test.js">
+		var text_question, Readystring;
+	</script>
+</head>
+<body>
+	<div id="control">
+		Выберите квалификацию: 
+		<select id="select_qu">
+			<script type="text/javascript">
+				getOption("getQualification",document.getElementById("select_qu"));
+			</script>
+		</select>
+		<br>Выберите тип вопроса: 
+		<select id="select_ty">
+			<script type="text/javascript">
+				getOption("getType",document.getElementById("select_ty"));
+			</script>
+		</select>
+		
+		<br>Выберите вопрос: 
+		<select id="select_que">
+			<script type="text/javascript">
+				getOption("getQuestion",document.getElementById("select_que"));
+			</script>
+		</select>
+	</div>
+	
+</body>
+</html>
